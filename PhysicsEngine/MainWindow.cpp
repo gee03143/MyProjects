@@ -20,9 +20,6 @@ float vertices[] = {
      0.0f,  0.5f, 0.0f
 };
 
-Shader shader;
-Triangle triangle;
-
 int main()
 {
     // glfw: initialize and configure
@@ -56,7 +53,11 @@ int main()
         return -1;
     }
 
-    shader.Init();
+    Shader shader("Shaders/vertex.txt", "Shaders/fragment.txt");
+    Triangle triangle(glm::vec2(-0.1,-0.3), glm::vec2(0.5,0.5));
+    Triangle triangle2(glm::vec2(0.3, 0.3), glm::vec2(0.3, 0.3));
+
+    triangle.InitDrawingData();
     triangle.InitDrawingData();
 
     // render loop
@@ -73,6 +74,7 @@ int main()
         glClear(GL_COLOR_BUFFER_BIT);
 
         triangle.Draw(&shader);
+        triangle2.Draw(&shader);
 
         // glfw: swap buffers and poll IO events (keys pressed/released, mouse moved etc.)
         // -------------------------------------------------------------------------------

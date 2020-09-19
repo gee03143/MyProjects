@@ -2,11 +2,17 @@
 #define TRIANGLE_H
 
 #include <glad/glad.h>
+#include <glm/glm.hpp>
+#include <glm/gtc/matrix_transform.hpp>
 
 #include "Shader.h"
 
 class Triangle
 {
+    glm::vec2 Position;
+    glm::vec2 Scale;
+
+
     unsigned int VAO;
     //verticies
     float vertices[9] = {
@@ -16,7 +22,7 @@ class Triangle
     };
 
 public:
-    Triangle();
+    Triangle(glm::vec2 position, glm::vec2 scale);
     ~Triangle() {};
 
     void InitDrawingData();

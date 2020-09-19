@@ -3,32 +3,30 @@
 
 #include <glad/glad.h>
 #include <GLFW/glfw3.h>
+#include <glm/glm.hpp>
 
 #include <iostream>
+#include <string>
 
 class Shader
 {
+	Shader();	//private 생성자 -> shader 생성 시 반드시 쉐이더 코드 경로가 주어져야 함
 	unsigned int ID;
 
-	const char* vertexShaderSource = "#version 330 core\n"
-		"layout (location = 0) in vec3 aPos;\n"
-		"void main()\n"
-		"{\n"
-		"   gl_Position = vec4(aPos.x, aPos.y, aPos.z, 1.0);\n"
-		"}\0";
-	const char* fragmentShaderSource = "#version 330 core\n"
-		"out vec4 FragColor;\n"
-		"void main()\n"
-		"{\n"
-		"   FragColor = vec4(1.0f, 0.5f, 0.2f, 1.0f);\n"
-		"}\n\0";
-
 public:
-	Shader();
+	Shader(std::string vertexPath, std::string fragmentPath);
 	~Shader() {}
 
-	void Init();
 	void Use();
+
+	void SetBool(const std::string& name, bool value) const;
+	void SetInt(const std::string& name, int value) const;
+	void SetFloat(const std::string& name, float value) const;
+
+	void SetFloat4(const std::string& name, float x, float y, float z, float w) const;
+
+	void SetMat4f(const std::string& name, glm::mat4 value) const;
+
 
 };
 

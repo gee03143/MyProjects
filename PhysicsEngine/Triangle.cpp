@@ -1,6 +1,7 @@
 #include "Triangle.h"
 
-Triangle::Triangle()
+Triangle::Triangle(glm::vec2 position, glm::vec2 scale)
+    :Position(position), Scale(scale)
 {
 }
 
@@ -21,7 +22,13 @@ void Triangle::InitDrawingData()
 
 void Triangle::Draw(Shader* shader)
 {
-    shader->Use();
+    glm::mat4 trans = glm::mat4(1.0f);
+    trans = glm::translate(trans, glm::vec3(Position, 0.0f));
+    trans = glm::scale(trans, glm::vec3(Scale, 0.0f));
+    shader->SetMat4f("transform", trans);
+
+
+    shader->SetFloat4("inputColor", 0.7f, 0.5f, 0.5f, 0.0f);
     glBindVertexArray(VAO);
     glDrawArrays(GL_TRIANGLES, 0, 3);
 }

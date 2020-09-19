@@ -1,15 +1,49 @@
 #include "Shader.h"
 
-Shader::Shader()
-{
-}
+#include <glm/gtc/type_ptr.hpp>
+#include <fstream>
+#include <sstream>
 
-void Shader::Init()
+Shader::Shader() {}
+
+Shader::Shader(std::string vertexPath, std::string fragmentPath)
 {
+    std::string vertexCode;
+    std::string fragmentCode;
+    std::ifstream vShaderFile;
+    std::ifstream fShaderFile;
+
+    // ifstream 객체들이 예외를 던질 수 있도록 합니다.
+    vShaderFile.exceptions(std::ifstream::failbit | std::ifstream::badbit);
+    fShaderFile.exceptions(std::ifstream::failbit | std::ifstream::badbit);
+
+    try
+    {
+        // 파일 열기
+        vShaderFile.open(vertexPath);
+        fShaderFile.open(fragmentPath);
+        std::stringstream vShaderStream, fShaderStream;
+        // stream에 파일의 버퍼 내용을 읽기
+        vShaderStream << vShaderFile.rdbuf();
+        fShaderStream << fShaderFile.rdbuf();
+        // 파일 핸들러 닫기
+        vShaderFile.close();
+        fShaderFile.close();
+        // stream을 string으로 변환
+        vertexCode = vShaderStream.str();
+        fragmentCode = fShaderStream.str();
+    }
+    catch (std::ifstream::failure e)
+    {
+        std::cout << "ERROR::SHADER::FILE_NOT_SUCCESFULLY_READ" << std::endl;
+    }
+    const char* vShaderCode = vertexCode.c_str();
+    const char* fShaderCode = fragmentCode.c_str();
+
     unsigned int vertexShader;
     unsigned int fragmentShader;
     vertexShader = glCreateShader(GL_VERTEX_SHADER);
-    glShaderSource(vertexShader, 1, &vertexShaderSource, NULL);
+    glShaderSource(vertexShader, 1, &vShaderCode, NULL);
     glCompileShader(vertexShader);
 
     int success;
@@ -21,7 +55,7 @@ void Shader::Init()
     }
 
     fragmentShader = glCreateShader(GL_FRAGMENT_SHADER);
-    glShaderSource(fragmentShader, 1, &fragmentShaderSource, NULL);
+    glShaderSource(fragmentShader, 1, &fShaderCode, NULL);
     glCompileShader(fragmentShader);
 
     glGetShaderiv(fragmentShader, GL_COMPILE_STATUS, &success);
@@ -49,4 +83,39 @@ void Shader::Init()
 void Shader::Use()
 {
     glUseProgram(ID);
+}
+
+void Shader::SetBool(const std::string& name, bool value) const
+{
+    glUseProgram(ID);
+    int location = glGetUniformLocation(ID, name.c_str());
+    glUniform1i(location, value);
+}
+
+void Shader::SetInt(const std::string& name, int value) const
+{
+    glUseProgram(ID);
+    int location = glGetUniformLocation(ID, name.c_str());
+    glUniform1i(location, value);
+}
+
+void Shader::SetFloat(const std::string& name, float value) const
+{
+    glUseProgram(ID);
+    int location = glGetUniformLocation(ID, name.c_str());
+    glUniform1f(location, value);
+}
+
+void Shader::SetFloat4(const std::string& name, float x, float y, float z, float w) const
+{
+    glUseProgram(ID);
+    int location = glGetUniformLocation(ID, name.c_str());
+    glUniform4f(location, x, y, z, w);
+}
+
+void Shader::SetMat4f(const std::string& name, glm::mat4 value) const
+{
+    glUseProgram(ID);
+    int location = glGetUniformLocation(ID, name.c_str());
+    glUniformMatrix4fv(location, 1, GL_FALSE, glm::value_ptr(value));
 }
