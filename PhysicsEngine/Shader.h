@@ -25,6 +25,8 @@ public:
 
 	void SetFloat4(const std::string& name, float x, float y, float z, float w) const;
 
+	void SetFloat4(const std::string& name, glm::vec4 value) const;
+
 	void SetMat4f(const std::string& name, glm::mat4 value) const;
 
 

@@ -5,20 +5,15 @@
 
 #include "Shader.h"
 #include "Triangle.h"
+#include "Aabb.h"
+#include "Circle.h"
 
 void framebuffer_size_callback(GLFWwindow* window, int width, int height);
 void processInput(GLFWwindow* window);
 
 // settings
-const unsigned int SCR_WIDTH = 800;
+const unsigned int SCR_WIDTH = 600;
 const unsigned int SCR_HEIGHT = 600;
-
-//verticies
-float vertices[] = {
-    -0.5f, -0.5f, 0.0f,
-     0.5f, -0.5f, 0.0f,
-     0.0f,  0.5f, 0.0f
-};
 
 int main()
 {
@@ -54,11 +49,10 @@ int main()
     }
 
     Shader shader("Shaders/vertex.txt", "Shaders/fragment.txt");
-    Triangle triangle(glm::vec2(-0.1,-0.3), glm::vec2(0.5,0.5));
-    Triangle triangle2(glm::vec2(0.3, 0.3), glm::vec2(0.3, 0.3));
-
-    triangle.InitDrawingData();
-    triangle.InitDrawingData();
+    Triangle triangle(glm::vec2(-0.1,-0.3), glm::vec2(0.5,0.5), glm::vec3(1.0,0.5,0.5));
+    Triangle triangle2(glm::vec2(-0.7, -0.5), glm::vec2(0.3, 0.3), glm::vec3(1.0, 1.0, 1.0));
+    Aabb aabb(glm::vec2(0.0), glm::vec2(0.2), glm::vec2(0.1, 0.1), glm::vec3(0.5, 0.5, 1.0));
+    Circle circle(glm::vec2(0.8, 0.8), glm::vec2(0.1, 0.1), glm::vec3(0.5, 0.5, 1.0), 1.0f);
 
     // render loop
     // -----------
@@ -70,11 +64,16 @@ int main()
 
         // render
         // ------
-        glClearColor(1.0f, 1.0f, 1.0f, 1.0f);
+        glClearColor(0.2f, 0.3f, 0.1f, 1.0f);
         glClear(GL_COLOR_BUFFER_BIT);
+
 
         triangle.Draw(&shader);
         triangle2.Draw(&shader);
+        aabb.Draw(&shader);
+        circle.Draw(&shader);
+
+        //TODO : 카메라 클래스 정의하기(ortho view 구현하기), 시뮬레이션 루프 정의 
 
         // glfw: swap buffers and poll IO events (keys pressed/released, mouse moved etc.)
         // -------------------------------------------------------------------------------

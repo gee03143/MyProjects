@@ -113,6 +113,13 @@ void Shader::SetFloat4(const std::string& name, float x, float y, float z, float
     glUniform4f(location, x, y, z, w);
 }
 
+void Shader::SetFloat4(const std::string& name, glm::vec4 value) const
+{
+    glUseProgram(ID);
+    int location = glGetUniformLocation(ID, name.c_str());
+    glUniform4f(location, value.x, value.y, value.z, value.w);
+}
+
 void Shader::SetMat4f(const std::string& name, glm::mat4 value) const
 {
     glUseProgram(ID);

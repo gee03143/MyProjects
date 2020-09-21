@@ -1,12 +1,20 @@
 #include "Triangle.h"
 
-Triangle::Triangle(glm::vec2 position, glm::vec2 scale)
-    :Position(position), Scale(scale)
+Triangle::Triangle(glm::vec2 position, glm::vec2 scale, glm::vec3 color)
+    :Shape(position,scale,color)
 {
+    InitDrawingData();
 }
 
 void Triangle::InitDrawingData()
 {
+    //verticies
+    float vertices[9] = {
+        -0.5f, -0.5f, 0.0f,
+         0.5f, -0.5f, 0.0f,
+         0.0f,  0.36f, 0.0f 
+    };
+
 	unsigned int VBO;
     glGenBuffers(1, &VBO);
 
@@ -27,8 +35,8 @@ void Triangle::Draw(Shader* shader)
     trans = glm::scale(trans, glm::vec3(Scale, 0.0f));
     shader->SetMat4f("transform", trans);
 
-
-    shader->SetFloat4("inputColor", 0.7f, 0.5f, 0.5f, 0.0f);
+    shader->SetFloat4("inputColor", glm::vec4(Color,0.0f));
     glBindVertexArray(VAO);
     glDrawArrays(GL_TRIANGLES, 0, 3);
+    glBindVertexArray(0);
 }
