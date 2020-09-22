@@ -1,9 +1,2 @@
 ﻿  MainWindow.cpp
-C:\Users\gee03\source\repos\PhysicsEngine\PhysicsEngine\MainWindow.cpp(55,24): warning C4305: '인수': 'double'에서 'T'(으)로 잘립니다.
-          with
-          [
-              T=float
-          ]
-  Triangle.cpp
-  코드를 생성하고 있습니다...
   PhysicsEngine.vcxproj -> C:\Users\gee03\source\repos\PhysicsEngine\Debug\PhysicsEngine.exe

@@ -35,12 +35,12 @@ void Circle::InitDrawingData()
 
 void Circle::Draw(Shader* shader)
 {
-    glm::mat4 trans = glm::mat4(1.0f);
-    trans = glm::translate(trans, glm::vec3(Position, 0.0f));
-    trans = glm::scale(trans, glm::vec3(Scale, 0.0f));
-    shader->SetMat4f("transform", trans);
+    glm::mat4 model = glm::mat4(1.0f);
+    model = glm::translate(model, glm::vec3(Position, 0.0f));
+    model = glm::scale(model, glm::vec3(Scale, 0.0f));
+    shader->SetMat4("model", model);
 
-    shader->SetFloat4("inputColor", glm::vec4(Color, 0.0f));
+    shader->SetVec4("inputColor", glm::vec4(Color, 0.0f));
 
     glBindVertexArray(VAO);
     glDrawArrays(GL_TRIANGLE_FAN, 0, TRIANGLE_NUM);

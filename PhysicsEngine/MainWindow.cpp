@@ -7,12 +7,13 @@
 #include "Triangle.h"
 #include "Aabb.h"
 #include "Circle.h"
+#include "Camera.h"
 
 void framebuffer_size_callback(GLFWwindow* window, int width, int height);
 void processInput(GLFWwindow* window);
 
 // settings
-const unsigned int SCR_WIDTH = 600;
+const unsigned int SCR_WIDTH = 800;
 const unsigned int SCR_HEIGHT = 600;
 
 int main()
@@ -49,10 +50,14 @@ int main()
     }
 
     Shader shader("Shaders/vertex.txt", "Shaders/fragment.txt");
-    Triangle triangle(glm::vec2(-0.1,-0.3), glm::vec2(0.5,0.5), glm::vec3(1.0,0.5,0.5));
-    Triangle triangle2(glm::vec2(-0.7, -0.5), glm::vec2(0.3, 0.3), glm::vec3(1.0, 1.0, 1.0));
-    Aabb aabb(glm::vec2(0.0), glm::vec2(0.2), glm::vec2(0.1, 0.1), glm::vec3(0.5, 0.5, 1.0));
-    Circle circle(glm::vec2(0.8, 0.8), glm::vec2(0.1, 0.1), glm::vec3(0.5, 0.5, 1.0), 1.0f);
+    Triangle triangle(glm::vec2(400.0, 300.0), glm::vec2(150.0, 150.0), glm::vec3(1.0, 0.5, 0.5));
+    Triangle triangle2(glm::vec2(150.0, 450.0), glm::vec2(150.0, 150.0), glm::vec3(1.0, 1.0, 1.0));
+    Aabb aabb(glm::vec2(700.0,100.0), glm::vec2(750.0, 500.0), glm::vec2(1.0, 1.0), glm::vec3(0.5, 0.5, 1.0));
+    Circle circle(glm::vec2(600.0, 400.0), glm::vec2(1.0, 1.0), glm::vec3(0.5, 0.5, 1.0), 32.0f);
+
+    Camera camera(glm::vec3(400.0, 300.0, 1000.0), (float)SCR_WIDTH , (float)SCR_HEIGHT, shader);
+    
+    //camera.SetPerspective(45.0f, -10.0f, 100.0f);
 
     // render loop
     // -----------
@@ -73,7 +78,7 @@ int main()
         aabb.Draw(&shader);
         circle.Draw(&shader);
 
-        //TODO : 카메라 클래스 정의하기(ortho view 구현하기), 시뮬레이션 루프 정의 
+        //TODO : 시뮬레이션 루프 정의, 카메라 움직임 구현하기
 
         // glfw: swap buffers and poll IO events (keys pressed/released, mouse moved etc.)
         // -------------------------------------------------------------------------------

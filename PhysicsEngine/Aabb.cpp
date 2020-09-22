@@ -1,6 +1,7 @@
 #include "Aabb.h"
 
 Aabb::Aabb(glm::vec2 min, glm::vec2 max, glm::vec2 scale, glm::vec3 color)
+    :Minpoint(min), Maxpoint(max)
 {
     this->Position = glm::vec2((max.x - min.x) / 2, (max.y - min.y) / 2);
     this->Scale = scale;
@@ -13,10 +14,10 @@ void Aabb::InitDrawingData()
 {
     //verticies
     float vertices[12] = {
-        -0.5f,  0.5f, 0.0f, //vertex 0 : Top-left  
-         0.5f, 0.5f, 0.0f,  //vertex 1 : Top-right   
-         0.5f, -0.5f, 0.0f, //vertex 2 : Bottom-right
-        -0.5f, -0.5f, 0.0f  //vertex 3 : Bottom-left  
+        Minpoint.x, Maxpoint.y, 0.0f, //vertex 0 : Top-left 
+        Maxpoint.x, Maxpoint.y, 0.0f,  //vertex 1 : Top-right   
+        Maxpoint.x, Minpoint.y, 0.0f, //vertex 2 : Bottom-right
+        Minpoint.x, Minpoint.y, 0.0f,  //vertex 3 : Bottom-left  
     };
 
     //indices
@@ -46,12 +47,12 @@ void Aabb::InitDrawingData()
 
 void Aabb::Draw(Shader* shader)
 {
-    glm::mat4 trans = glm::mat4(1.0f);
-    trans = glm::translate(trans, glm::vec3(Position, 0.0f));
-    trans = glm::scale(trans, glm::vec3(Scale, 0.0f));
-    shader->SetMat4f("transform", trans);
+    glm::mat4 model = glm::mat4(1.0f);
+    //model = glm::translate(model, glm::vec3(Position, 0.0f));
+    model = glm::scale(model, glm::vec3(Scale, 0.0f));
+    shader->SetMat4("model", model);
 
-    shader->SetFloat4("inputColor", glm::vec4(Color, 0.0f));
+    shader->SetVec4("inputColor", glm::vec4(Color, 0.0f));
     glBindVertexArray(VAO);
     glDrawElements(GL_TRIANGLES, 6, GL_UNSIGNED_INT, 0);
     glBindVertexArray(0);
