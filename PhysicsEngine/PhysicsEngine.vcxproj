@@ -147,6 +147,7 @@
     <ClCompile Include="Circle.cpp" />
     <ClCompile Include="glad.c" />
     <ClCompile Include="MainWindow.cpp" />
+    <ClCompile Include="Scene.cpp" />
     <ClCompile Include="Shader.cpp" />
     <ClCompile Include="Shape.cpp" />
     <ClCompile Include="Triangle.cpp" />
@@ -155,8 +156,10 @@
     <ClInclude Include="Aabb.h" />
     <ClInclude Include="Camera.h" />
     <ClInclude Include="Circle.h" />
+    <ClInclude Include="Scene.h" />
     <ClInclude Include="Shader.h" />
     <ClInclude Include="Shape.h" />
+    <ClInclude Include="ShapeHeaders.h" />
     <ClInclude Include="Triangle.h" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />

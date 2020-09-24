@@ -1,12 +1,9 @@
 #include "Aabb.h"
 
 Aabb::Aabb(glm::vec2 min, glm::vec2 max, glm::vec2 scale, glm::vec3 color)
-    :Minpoint(min), Maxpoint(max)
+    :Shape(glm::vec2((max.x + min.x) / 2, (max.y + min.y) / 2), scale, color), 
+    Width(max.x - min.x), Height(max.y - min.y)
 {
-    this->Position = glm::vec2((max.x - min.x) / 2, (max.y - min.y) / 2);
-    this->Scale = scale;
-    this->Color = color;
-
     InitDrawingData();
 }
 
@@ -14,10 +11,10 @@ void Aabb::InitDrawingData()
 {
     //verticies
     float vertices[12] = {
-        Minpoint.x, Maxpoint.y, 0.0f, //vertex 0 : Top-left 
-        Maxpoint.x, Maxpoint.y, 0.0f,  //vertex 1 : Top-right   
-        Maxpoint.x, Minpoint.y, 0.0f, //vertex 2 : Bottom-right
-        Minpoint.x, Minpoint.y, 0.0f,  //vertex 3 : Bottom-left  
+        -Width / 2,  Height / 2, 0.0f, //vertex 0 : Top-left 
+         Width / 2,  Height / 2, 0.0f, //vertex 1 : Top-right   
+         Width / 2, -Height / 2, 0.0f, //vertex 2 : Bottom-right
+        -Width / 2, -Height / 2, 0.0f, //vertex 3 : Bottom-left  
     };
 
     //indices
@@ -48,7 +45,7 @@ void Aabb::InitDrawingData()
 void Aabb::Draw(Shader* shader)
 {
     glm::mat4 model = glm::mat4(1.0f);
-    //model = glm::translate(model, glm::vec3(Position, 0.0f));
+    model = glm::translate(model, glm::vec3(Position, 0.0f));
     model = glm::scale(model, glm::vec3(Scale, 0.0f));
     shader->SetMat4("model", model);
 

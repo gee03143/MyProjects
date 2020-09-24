@@ -3,11 +3,7 @@
 
 #include <iostream>
 
-#include "Shader.h"
-#include "Triangle.h"
-#include "Aabb.h"
-#include "Circle.h"
-#include "Camera.h"
+#include "Scene.h"
 
 void framebuffer_size_callback(GLFWwindow* window, int width, int height);
 void processInput(GLFWwindow* window);
@@ -15,6 +11,8 @@ void processInput(GLFWwindow* window);
 // settings
 const unsigned int SCR_WIDTH = 800;
 const unsigned int SCR_HEIGHT = 600;
+
+const float FPS = 30;
 
 int main()
 {
@@ -49,20 +47,19 @@ int main()
         return -1;
     }
 
-    Shader shader("Shaders/vertex.txt", "Shaders/fragment.txt");
-    Triangle triangle(glm::vec2(400.0, 300.0), glm::vec2(150.0, 150.0), glm::vec3(1.0, 0.5, 0.5));
-    Triangle triangle2(glm::vec2(150.0, 450.0), glm::vec2(150.0, 150.0), glm::vec3(1.0, 1.0, 1.0));
-    Aabb aabb(glm::vec2(700.0,100.0), glm::vec2(750.0, 500.0), glm::vec2(1.0, 1.0), glm::vec3(0.5, 0.5, 1.0));
-    Circle circle(glm::vec2(600.0, 400.0), glm::vec2(1.0, 1.0), glm::vec3(0.5, 0.5, 1.0), 32.0f);
-
-    Camera camera(glm::vec3(400.0, 300.0, 1000.0), (float)SCR_WIDTH , (float)SCR_HEIGHT, shader);
-    
-    //camera.SetPerspective(45.0f, -10.0f, 100.0f);
+    Scene scene((float)SCR_WIDTH, (float)SCR_HEIGHT);
 
     // render loop
     // -----------
     while (!glfwWindowShouldClose(window))
     {
+        float deltaTime = 0.0f;
+        float lastFrame = 0.0f;
+
+        float currentTime = glfwGetTime();
+        deltaTime = currentTime - lastFrame;
+        lastFrame = currentTime;
+
         // input
         // -----
         processInput(window);
@@ -72,11 +69,8 @@ int main()
         glClearColor(0.2f, 0.3f, 0.1f, 1.0f);
         glClear(GL_COLOR_BUFFER_BIT);
 
-
-        triangle.Draw(&shader);
-        triangle2.Draw(&shader);
-        aabb.Draw(&shader);
-        circle.Draw(&shader);
+        scene.Update(deltaTime);
+        scene.Draw();
 
         //TODO : 시뮬레이션 루프 정의, 카메라 움직임 구현하기
 
