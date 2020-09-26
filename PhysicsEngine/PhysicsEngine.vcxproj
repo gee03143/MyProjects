@@ -143,8 +143,10 @@
   </ItemDefinitionGroup>
   <ItemGroup>
     <ClCompile Include="Aabb.cpp" />
+    <ClCompile Include="Body.cpp" />
     <ClCompile Include="Camera.cpp" />
     <ClCompile Include="Circle.cpp" />
+    <ClCompile Include="CollisionDetector.cpp" />
     <ClCompile Include="glad.c" />
     <ClCompile Include="MainWindow.cpp" />
     <ClCompile Include="Scene.cpp" />
@@ -154,8 +156,10 @@
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Aabb.h" />
+    <ClInclude Include="Body.h" />
     <ClInclude Include="Camera.h" />
     <ClInclude Include="Circle.h" />
+    <ClInclude Include="CollisionDetector.h" />
     <ClInclude Include="Scene.h" />
     <ClInclude Include="Shader.h" />
     <ClInclude Include="Shape.h" />

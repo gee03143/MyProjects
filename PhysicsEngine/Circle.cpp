@@ -3,7 +3,7 @@
 #include "Circle.h"
 
 Circle::Circle(glm::vec2 position, glm::vec2 scale, glm::vec3 color, float radius)
-	:Shape(position, scale, color), Radius(radius)
+	:Shape(position, scale, color, CIRCLE), Radius(radius)
 {
     InitDrawingData();
 }

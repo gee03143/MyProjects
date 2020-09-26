@@ -4,6 +4,7 @@
 #include "ShapeHeaders.h"
 #include "Camera.h"
 #include "Shader.h"
+#include "CollisionDetector.h"
 
 #include <map>
 #include <string>
@@ -22,7 +23,7 @@ public:
 
 	void Draw();
 	void Update(float dt);
-
+	void CollisionCheck();
 };
 
 #endif

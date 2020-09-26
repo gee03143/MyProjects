@@ -1,7 +1,7 @@
 #include "Aabb.h"
 
 Aabb::Aabb(glm::vec2 min, glm::vec2 max, glm::vec2 scale, glm::vec3 color)
-    :Shape(glm::vec2((max.x + min.x) / 2, (max.y + min.y) / 2), scale, color), 
+    :Shape(glm::vec2((max.x + min.x) / 2, (max.y + min.y) / 2), scale, color, AABB), 
     Width(max.x - min.x), Height(max.y - min.y)
 {
     InitDrawingData();
@@ -53,4 +53,14 @@ void Aabb::Draw(Shader* shader)
     glBindVertexArray(VAO);
     glDrawElements(GL_TRIANGLES, 6, GL_UNSIGNED_INT, 0);
     glBindVertexArray(0);
+}
+
+glm::vec2 Aabb::Max()
+{
+    return glm::vec2(Position.x + Width / 2, Position.y + Height / 2);
+}
+
+glm::vec2 Aabb::Min()
+{
+    return glm::vec2(Position.x - Width / 2, Position.y - Height / 2);
 }

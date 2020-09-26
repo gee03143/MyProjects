@@ -1,5 +1,2 @@
-﻿  MainWindow.cpp
-C:\Users\gee03\source\repos\PhysicsEngine\PhysicsEngine\MainWindow.cpp(59,27): warning C4244: '초기화 중': 'double'에서 'float'(으)로 변환하면서 데이터가 손실될 수 있습니다.
-  Scene.cpp
-  코드를 생성하고 있습니다...
+﻿  Scene.cpp
   PhysicsEngine.vcxproj -> C:\Users\gee03\source\repos\PhysicsEngine\Debug\PhysicsEngine.exe

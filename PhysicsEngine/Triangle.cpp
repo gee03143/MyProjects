@@ -1,7 +1,7 @@
 #include "Triangle.h"
 
 Triangle::Triangle(glm::vec2 position, glm::vec2 scale, glm::vec3 color)
-    :Shape(position,scale,color)
+    :Shape(position,scale,color, TRIANGLE)
 {
     InitDrawingData();
 }

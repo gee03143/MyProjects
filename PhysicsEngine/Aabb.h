@@ -17,6 +17,8 @@ public:
     void InitDrawingData();
     void Draw(Shader* shader);
 
+    glm::vec2 Max();
+    glm::vec2 Min();
 };
 
 #endif

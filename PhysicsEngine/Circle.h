@@ -8,9 +8,11 @@ class Circle : public Shape
     unsigned int VAO;
 
     const int TRIANGLE_NUM = 32;   
-    float Radius;
 
 public:
+
+    float Radius;
+
     Circle(glm::vec2 position, glm::vec2 scale, glm::vec3 color, float radius);
     ~Circle() {};
 

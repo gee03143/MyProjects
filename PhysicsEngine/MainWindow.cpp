@@ -12,8 +12,6 @@ void processInput(GLFWwindow* window);
 const unsigned int SCR_WIDTH = 800;
 const unsigned int SCR_HEIGHT = 600;
 
-const float FPS = 30;
-
 int main()
 {
     // glfw: initialize and configure
@@ -72,7 +70,7 @@ int main()
         scene.Update(deltaTime);
         scene.Draw();
 
-        //TODO : 시뮬레이션 루프 정의, 카메라 움직임 구현하기
+        //TODO : impulse resolution
 
         // glfw: swap buffers and poll IO events (keys pressed/released, mouse moved etc.)
         // -------------------------------------------------------------------------------

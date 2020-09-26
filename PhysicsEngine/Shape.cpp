@@ -6,8 +6,8 @@ Shape::Shape()
 
 }
 
-Shape::Shape(glm::vec2 position, glm::vec2 scale, glm::vec3 color)
-	:Position(position), Scale(scale), Color(color)
+Shape::Shape(glm::vec2 position, glm::vec2 scale, glm::vec3 color, ShapeObject_t t)
+	:Position(position), Scale(scale), Color(color), type(t)
 {
 
 }

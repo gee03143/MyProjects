@@ -8,6 +8,7 @@ class Triangle : public Shape
     unsigned int VAO;
 
 public:
+
     Triangle(glm::vec2 position, glm::vec2 scale, glm::vec3 color);
     ~Triangle() {};
 
